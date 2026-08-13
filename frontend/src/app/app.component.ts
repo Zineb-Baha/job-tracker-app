@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SignupComponent } from './features/auth/signup/signup.component';
 import { RouterOutlet } from "@angular/router";
 
 @Component({

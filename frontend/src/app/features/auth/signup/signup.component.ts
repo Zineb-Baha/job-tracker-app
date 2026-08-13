@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
 import { SignupRequest } from '../../../core/models/auth.model';
+import { NavbarComponent } from "../../../shared/components/navbar/navbar.component";
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })

@@ -1,0 +1,80 @@
+<header class="navbar">
+
+  <!-- Logo -->
+
+  <a routerLink="/" class="logo">
+    HIRE
+  </a>
+
+
+  @if (!isAuthPage) {
+
+    <!-- Public navigation -->
+
+    <nav class="nav-links">
+
+      <a routerLink="/" fragment="features">
+        Features
+      </a>
+
+      <a routerLink="/" fragment="how-it-works">
+        How it works
+      </a>
+
+      <a routerLink="/" fragment="roles">
+        For candidates
+      </a>
+
+    </nav>
+
+
+    <!-- Home actions -->
+
+    <div class="nav-actions">
+
+      <a routerLink="/login" class="login-btn">
+        Log in
+      </a>
+
+      <a routerLink="/signup" class="signup-btn">
+        Sign up
+      </a>
+
+    </div>
+
+  }
+
+
+  @if (isAuthPage) {
+
+    <!-- Authentication page actions -->
+
+    <div class="nav-actions">
+
+      @if (router.url === '/login') {
+
+        <span class="auth-text">
+          Don't have an account?
+        </span>
+
+        <a routerLink="/signup" class="signup-btn">
+          Sign up
+        </a>
+
+      } @else {
+
+        <span class="auth-text">
+          Already have an account?
+        </span>
+
+        <a routerLink="/login" class="login-btn">
+          Log in
+        </a>
+
+      }
+
+    </div>
+
+  }
+
+</header>
