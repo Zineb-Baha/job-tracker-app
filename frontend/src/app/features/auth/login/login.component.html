@@ -1,0 +1,66 @@
+<app-navbar></app-navbar>
+<div class="login-page">
+  <div class="login-container">
+
+    <h1>Sign in</h1>
+
+    <!-- Success Alert (e.g. redirected or successful auth) -->
+    @if (successMessage) {
+      <div class="alert alert-success">
+        {{ successMessage }}
+      </div>
+    }
+
+    <!-- Backend Error Alert -->
+    @if (errorMessage) {
+      <div class="alert alert-error">
+        {{ errorMessage }}
+      </div>
+    }
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Enter your email"
+        >
+        @if (loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')) {
+          <small class="field-error">Email is required.</small>
+        }
+        @if (loginForm.get('email')?.touched && loginForm.get('email')?.hasError('email')) {
+          <small class="field-error">Please enter a valid email address.</small>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Enter your password"
+        >
+        @if (loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')) {
+          <small class="field-error">Password is required.</small>
+        }
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="isLoading">
+        @if (isLoading) {
+          <span>Signing in...</span>
+        } @else {
+          <span>Sign in</span>
+        }
+      </button>
+
+    </form>
+
+  </div>
+</div>
