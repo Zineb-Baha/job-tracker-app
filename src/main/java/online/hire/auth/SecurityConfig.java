@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,59 +12,59 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 public class SecurityConfig {
-	@Bean
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-	
-	 @Bean
-	    public SecurityFilterChain securityFilterChain(HttpSecurity http)
-	            throws Exception {
 
-	        http
-	            .csrf(csrf -> csrf.disable())
-	            .authorizeHttpRequests(auth -> auth
-	                .requestMatchers("/api/users/auth/**").permitAll()
-	                .anyRequest().authenticated()
-	            );
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-	        return http.build();
-	    }
+        http
+            // 1. Enable CORS using the corsConfigurationSource Bean defined below
+            .cors(Customizer.withDefaults())
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/**").permitAll()
+                .anyRequest().authenticated()
+            );
+//            .authorizeHttpRequests(auth -> auth
+//                    .requestMatchers("/api/candidate-profiles/**").permitAll()
+//                    .anyRequest().authenticated()
+//                );
 
-	 @Bean
-	    public CorsConfigurationSource corsConfigurationSource() {
-	        CorsConfiguration configuration = new CorsConfiguration();
+        return http.build();
+    }
 
-	        configuration.setAllowedOrigins(
-	                List.of("http://localhost:4200")
-	        );
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
 
-	        configuration.setAllowedMethods(
-	                List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")
-	        );
+        // 2. Add your live Vercel URL here (replace with your actual domain)
+        configuration.setAllowedOrigins(
+            List.of(
+                "http://localhost:4200",
+                "https://job-tracker-app-cyan.vercel.app/" // <-- ADD YOUR VERCEL URL HERE
+            )
+        );
 
-	        configuration.setAllowedHeaders(
-	                List.of("*")
-	        );
+        configuration.setAllowedMethods(
+            List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")
+        );
 
-	        UrlBasedCorsConfigurationSource source =
-	                new UrlBasedCorsConfigurationSource();
+        configuration.setAllowedHeaders(
+            List.of("*")
+        );
 
-	        source.registerCorsConfiguration("/**", configuration);
+        configuration.setAllowCredentials(true);
 
-	        return source;
-	    }
-	 
-	 
-	    public void addCorsMappings(CorsRegistry registry) {
-	        registry.addMapping("/**")
-	                .allowedOrigins("https://job-tracker-app-cyan.vercel.app/", "http://localhost:4200") // Replace with your Vercel URL
-	                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-	                .allowedHeaders("*")
-	                .allowCredentials(true);
-	    }
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
+    }
 }

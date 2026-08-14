@@ -1,5 +1,7 @@
 package online.hire.auth;
 
+import java.time.LocalDateTime;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,8 @@ public class AuthService {
             passwordEncoder.encode(request.password())
         );
         user.setRole(request.role());
+        user.setCreatedAt(LocalDateTime.now());
+        user.setActive(true);
 
         userRepository.save(user);
     }

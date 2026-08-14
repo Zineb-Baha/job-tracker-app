@@ -1,0 +1,333 @@
+<app-candidate-navbar></app-candidate-navbar>
+
+<main class="profile-page">
+
+  <div class="page-header">
+
+    <div>
+      <p class="eyebrow">MY PROFILE</p>
+
+      <h1>Edit your profile</h1>
+
+      <p class="page-description">
+        Keep your personal and professional information up to date.
+      </p>
+    </div>
+
+  </div>
+
+
+  <form
+    [formGroup]="profileForm"
+    (ngSubmit)="onSubmit()"
+    class="profile-form">
+
+
+    <!-- Profile picture -->
+
+    <section class="profile-section">
+
+      <div class="section-header">
+
+        <div>
+          <h2>Profile picture</h2>
+
+          <p>
+            Add a professional picture to your profile.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="profile-picture-container">
+
+        <div class="profile-avatar">
+          Z
+        </div>
+
+        <div class="picture-actions">
+
+          <button
+            type="button"
+            class="secondary-button">
+            Change photo
+          </button>
+
+          <span>
+            JPG or PNG · Max 5 MB
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Personal information -->
+
+    <section class="profile-section">
+
+      <div class="section-header">
+
+        <div>
+          <h2>Personal information</h2>
+
+          <p>
+            Your basic personal information.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="form-grid">
+
+        <!-- First name -->
+
+        <div class="form-field">
+
+          <label for="firstName">
+            First name
+          </label>
+
+          <input
+            id="firstName"
+            type="text"
+            formControlName="firstName"
+            placeholder="Enter your first name">
+
+          @if (
+            profileForm.controls.firstName.touched &&
+            profileForm.controls.firstName.invalid
+          ) {
+            <small class="error">
+              First name is required.
+            </small>
+          }
+
+        </div>
+
+
+        <!-- Last name -->
+
+        <div class="form-field">
+
+          <label for="lastName">
+            Last name
+          </label>
+
+          <input
+            id="lastName"
+            type="text"
+            formControlName="lastName"
+            placeholder="Enter your last name">
+
+          @if (
+            profileForm.controls.lastName.touched &&
+            profileForm.controls.lastName.invalid
+          ) {
+            <small class="error">
+              Last name is required.
+            </small>
+          }
+
+        </div>
+
+
+        <!-- Phone -->
+
+        <div class="form-field">
+
+          <label for="phoneNumber">
+            Phone number
+          </label>
+
+          <input
+            id="phoneNumber"
+            type="tel"
+            formControlName="phoneNumber"
+            placeholder="+212 ...">
+
+        </div>
+
+
+        <!-- Address -->
+
+        <div class="form-field">
+
+          <label for="address">
+            Address
+          </label>
+
+          <input
+            id="address"
+            type="text"
+            formControlName="address"
+            placeholder="City, Country">
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Professional information -->
+
+    <section class="profile-section">
+
+      <div class="section-header">
+
+        <div>
+          <h2>Professional information</h2>
+
+          <p>
+            Tell recruiters about your professional background.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="form-field full-width">
+
+        <label for="headline">
+          Professional headline
+        </label>
+
+        <input
+          id="headline"
+          type="text"
+          formControlName="headline"
+          placeholder="e.g. Java Full Stack Developer">
+
+        <small class="field-help">
+          A short sentence describing your professional profile.
+        </small>
+
+      </div>
+
+
+      <div class="form-field full-width">
+
+        <label for="degree">
+          Degree
+        </label>
+
+        <input
+          id="degree"
+          type="text"
+          formControlName="degree"
+          placeholder="e.g. State Engineer in Software Engineering">
+
+      </div>
+
+
+      <div class="form-field full-width">
+
+        <label for="summary">
+          Professional summary
+        </label>
+
+        <textarea
+          id="summary"
+          rows="6"
+          formControlName="summary"
+          placeholder="Tell recruiters about your experience, skills and career goals...">
+        </textarea>
+
+        <small class="field-help">
+          Write a short summary of your professional background.
+        </small>
+
+      </div>
+
+    </section>
+
+
+    <!-- Resume -->
+
+    <section class="profile-section">
+
+      <div class="section-header">
+
+        <div>
+          <h2>Resume</h2>
+
+          <p>
+            Manage the resume recruiters can access.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="resume-box">
+
+        <div class="resume-icon">
+          📄
+        </div>
+
+        <div class="resume-info">
+
+          <strong>
+            Your resume
+          </strong>
+
+          <span>
+            PDF · Last updated recently
+          </span>
+
+        </div>
+
+        <button
+          type="button"
+          class="secondary-button">
+          Replace
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- Actions -->
+
+    <section class="form-actions">
+
+      @if (successMessage) {
+        <span class="success-message">
+          ✓ {{ successMessage }}
+        </span>
+      }
+
+      <div class="action-buttons">
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="onCancel()">
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="save-button"
+          [disabled]="isSaving">
+
+          @if (isSaving) {
+            Saving...
+          } @else {
+            Save changes
+          }
+
+        </button>
+
+      </div>
+
+    </section>
+
+  </form>
+
+</main>

@@ -1,0 +1,67 @@
+<nav class="candidate-navbar">
+
+  <div class="navbar-container">
+
+    <!-- Logo -->
+    <a routerLink="/candidate/home" class="logo">
+      HIRE
+    </a>
+
+    <!-- Navigation -->
+    <div class="nav-links">
+
+      <a
+        routerLink="/candidate/home"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        Dashboard
+      </a>
+
+      <a
+        routerLink="/candidate/jobs"
+        routerLinkActive="active">
+        Jobs
+      </a>
+
+      <a
+        routerLink="/candidate/applications"
+        routerLinkActive="active">
+        My Applications
+      </a>
+
+      <a
+        routerLink="/candidate/profile"
+        routerLinkActive="active">
+        Profile
+      </a>
+
+    </div>
+
+    <!-- Right -->
+    <div class="nav-right">
+
+      <button class="notification-btn">
+        🔔
+      </button>
+
+      <button class="profile-btn">
+
+        <span class="avatar">
+          Z
+        </span>
+
+        <span class="username">
+          Zineb
+        </span>
+
+        <span>
+          ▾
+        </span>
+
+      </button>
+
+    </div>
+
+  </div>
+
+</nav>
