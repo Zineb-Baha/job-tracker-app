@@ -11,6 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 public class SecurityConfig {
@@ -55,5 +56,14 @@ public class SecurityConfig {
 	        source.registerCorsConfiguration("/**", configuration);
 
 	        return source;
+	    }
+	 
+	 
+	    public void addCorsMappings(CorsRegistry registry) {
+	        registry.addMapping("/**")
+	                .allowedOrigins("https://job-tracker-app-cyan.vercel.app/", "http://localhost:4200") // Replace with your Vercel URL
+	                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+	                .allowedHeaders("*")
+	                .allowCredentials(true);
 	    }
 }
